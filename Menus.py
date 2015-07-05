@@ -9,9 +9,8 @@ import Extras
 
 class Essentials(object):
     '''Methods to be used by lower classes'''
-    def initialise(self):
-        '''initialise variables that will be used in both classes'''
-        hovered_button = None
+    #def initialise(self):
+    #    '''initialise variables that will be used in both classes'''
 
     def image_prep(self, button):
         '''Calculates position at which button will be placed'''
@@ -59,18 +58,18 @@ class Essentials(object):
         return screen
 
     def button_hover(self, mouse_x, mouse_y):
-        '''When mouse is over a button, the sprite for that button changes to lit up in indication of this'''
+        '''When mouse is over a button, the sprite for that button changes to a lit up version to indicate this'''
+        self.hovered_button = None
         for num, button in self.button_placing.items():
             self.button_dict[num]["Hover"] = False
             if button.collidepoint(mouse_x, mouse_y):
                 self.button_dict[num]["Hover"] = True
-                hovered_button = self.button_dict[num]["Hover"]
-            else:
-                hovered_button = None
+                self.hovered_button = self.button_dict[num]["Name"]
 
 class MainMenu(Essentials):
     '''The main menu, which is displayed when the game is run'''
     def __init__(self, screen_width, screen_height, first_play=False):
+        self.hovered_button = None
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.button_dict = {
@@ -149,6 +148,7 @@ if __name__ == "__main__":
         #    OPTIONSMENU = not OPTIONSMENU
         #    MAINMENU = not MAINMENU 
 
+        SCREEN.fill((100, 100, 100))
         SCREEN = MENU.button_draw(SCREEN)
         MENU.button_hover(MOUSEX, MOUSEY)
         pygame.display.update()
